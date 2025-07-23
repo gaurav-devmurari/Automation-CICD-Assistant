@@ -1,0 +1,134 @@
+<div class="chat-history">
+  <!-- Sidebar Header -->
+  <div class="sidebar-header" (click)="toggleCollapse.emit()">
+    <div class="logo-section">
+      <div class="logo-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 2L2 7L12 12L22 7L12 2Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M2 17L12 22L22 17"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M2 12L12 17L22 12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+      <span class="logo-text" [class.hidden]="isCollapsed"
+        >Automation CICD</span
+      >
+    </div>
+  </div>
+
+  <!-- Menu Items -->
+  <div class="menu-section">
+    <div class="menu-item" (click)="createNewChat()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M12 5V19M5 12H19"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+      <span [class.hidden]="isCollapsed">New pipeline</span>
+    </div>
+
+    <div class="menu-item" (click)="searchChats()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+        <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" />
+      </svg>
+      <span [class.hidden]="isCollapsed">Search chats</span>
+    </div>
+
+    <div class="menu-item" (click)="openPipelineList()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+        <path
+          d="M6.5 2H20V22H6.5A2.5 2.5 0 0 1 4 19.5V4.5A2.5 2.5 0 0 1 6.5 2Z"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+      </svg>
+      <span [class.hidden]="isCollapsed">Pipeline list</span>
+    </div>
+
+    <!-- <div class="menu-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+        <polygon points="10,8 16,12 10,16 10,8" fill="currentColor"/>
+      </svg>
+      <span [class.hidden]="isCollapsed">Sora</span>
+    </div> -->
+
+    <!-- <div class="menu-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="7" height="7" stroke="currentColor" stroke-width="2"/>
+        <rect x="14" y="3" width="7" height="7" stroke="currentColor" stroke-width="2"/>
+        <rect x="14" y="14" width="7" height="7" stroke="currentColor" stroke-width="2"/>
+        <rect x="3" y="14" width="7" height="7" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <span [class.hidden]="isCollapsed">GPTs</span>
+    </div> -->
+  </div>
+
+  <!-- Chats Section -->
+  <div class="chats-section">
+    <div class="section-title" [class.hidden]="isCollapsed">Chats</div>
+    <div class="chat-list">
+      <div
+        *ngFor="
+          let conversation of chatConversations;
+          trackBy: trackByConversation
+        "
+        class="chat-item"
+        (click)="selectConversation(conversation)"
+      >
+        <span class="chat-title" [class.hidden]="isCollapsed">{{
+          conversation.title
+        }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upgrade Section -->
+  <!-- <div class="upgrade-section">
+    <div class="menu-item upgrade-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <span [class.hidden]="isCollapsed">Upgrade plan</span>
+      <div class="upgrade-badge" [class.hidden]="isCollapsed">
+        <span>More access to the best models</span>
+      </div>
+    </div> -->
+
+  <!-- Collapse Toggle Button -->
+  <!-- <div class="collapse-section">
+      <div class="menu-item" (click)="toggleCollapse.emit()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" [style.transform]="isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)'">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span [class.hidden]="isCollapsed">Collapse</span>
+      </div>
+    </div>
+  </div> -->
+</div>

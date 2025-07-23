@@ -1,0 +1,326 @@
+<div class="app-container">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <button
+        class="btn-icon mobile-only"
+        (click)="toggleLeftDrawer()"
+        title="Chat History"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M3 12H21M3 6H21M3 18H21"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="header-center">
+      <h1>Automation CICD</h1>
+    </div>
+
+    <div class="header-right">
+      <button
+        class="btn-icon"
+        (click)="toggleRightDrawer()"
+        title="Code Editor"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M16 18L22 12L16 6M8 6L2 12L8 18"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <!-- Fixed Left Sidebar (Desktop) / Drawer (Mobile) -->
+    <div
+      class="left-sidebar desktop-only"
+      [class.collapsed]="isLeftSidebarCollapsed"
+    >
+      <app-chat-history
+        [isCollapsed]="isLeftSidebarCollapsed"
+        (toggleCollapse)="toggleLeftSidebarCollapse()"
+        (pipelineList)="showPipelineList()"
+        (newChatClicked)="showNewChat()"
+      >
+      </app-chat-history>
+    </div>
+
+    <!-- Mobile Left Drawer -->
+    <div class="drawer mobile-only" [class.open]="showLeftDrawer">
+      <app-chat-history></app-chat-history>
+    </div>
+
+    <!-- Main Content -->
+    <div
+      class="main-content-wrapper"
+      [class.sidebar-collapsed]="isLeftSidebarCollapsed"
+    >
+      <main class="main-content" *ngIf="currentView === 'chat'">
+        <div class="chat-container">
+          <div class="welcome-area" *ngIf="messages.length === 0">
+            <h2>How can I help you today?</h2>
+          </div>
+
+          <!-- Chat Messages -->
+          <div class="messages-container" *ngIf="messages.length > 0">
+            <div
+              *ngFor="let message of messages"
+              class="message-wrapper"
+              [class.user-message]="message.isUser"
+              [class.ai-message]="!message.isUser"
+            >
+              <div class="message-content">
+                <div class="message-avatar" *ngIf="!message.isUser">
+                  <div class="ai-avatar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 2L2 7L12 12L22 7L12 2Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M2 17L12 22L22 17"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M2 12L12 17L22 12"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="message-text">
+                  {{ message.content }}
+                </div>
+
+                <div class="message-avatar" *ngIf="message.isUser">
+                  <div class="user-avatar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M20 21V19A4 4 0 0 0 16 15H8A4 4 0 0 0 4 19V21"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <circle
+                        cx="12"
+                        cy="7"
+                        r="4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action buttons for AI messages -->
+              <!-- <div class="message-actions" *ngIf="!message.isUser">
+                <button class="action-btn" title="Copy">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M5 15H4A2 2 0 0 1 2 13V4A2 2 0 0 1 4 2H13A2 2 0 0 1 15 4V5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </button>
+                <button class="action-btn" title="Like">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M14 9V5A3 3 0 0 0 11 2A3 3 0 0 0 8 5V9"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M8 9H5A2 2 0 0 0 3 11V20A2 2 0 0 0 5 22H19A2 2 0 0 0 21 20V11A2 2 0 0 0 19 9H16"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </button>
+                <button class="action-btn" title="Dislike">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M10 15V19A3 3 0 0 0 13 22A3 3 0 0 0 16 19V15"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M16 15H19A2 2 0 0 0 21 13V4A2 2 0 0 0 19 2H5A2 2 0 0 0 3 4V13A2 2 0 0 0 5 15H8"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </button>
+                <button class="action-btn" title="Read aloud">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <polygon
+                      points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M19.07 4.93A10 10 0 0 1 19.07 19.07"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M15.54 8.46A5 5 0 0 1 15.54 15.54"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </button>
+                <button class="action-btn" title="Share">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <circle
+                      cx="18"
+                      cy="5"
+                      r="3"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <circle
+                      cx="6"
+                      cy="12"
+                      r="3"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <circle
+                      cx="18"
+                      cy="19"
+                      r="3"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <line
+                      x1="8.59"
+                      y1="13.51"
+                      x2="15.42"
+                      y2="17.49"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <line
+                      x1="15.41"
+                      y1="6.51"
+                      x2="8.59"
+                      y2="10.49"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </button>
+                <button class="action-btn" title="Regenerate">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M1 4V10H7"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M23 20V14H17"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14L18.36 18.36A9 9 0 0 1 3.51 15"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button class="action-btn" title="Download">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M21 15V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V15"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <polyline
+                      points="7,10 12,15 17,10"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                    <line
+                      x1="12"
+                      y1="15"
+                      x2="12"
+                      y2="3"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </button>
+              </div> -->
+            </div>
+          </div>
+          <!-- Input Area -->
+          <div class="input-area">
+            <app-search-box
+              (messageSent)="onMessageSent($event)"
+              [hasMessages]="messages.length > 0"
+            >
+            </app-search-box>
+          </div>
+        </div>
+      </main>
+      <main class="main-content" *ngIf="currentView === 'list'">
+        <app-pipeline-list></app-pipeline-list>
+      </main>
+    </div>
+
+    <!-- Right Drawer - Code Editor -->
+    <div class="drawer right" [class.open]="showRightDrawer">
+      <app-code-editor
+        (codeExecuted)="onCodeExecuted($event)"
+      ></app-code-editor>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div
+    class="overlay"
+    [class.active]="showLeftDrawer || showRightDrawer"
+    (click)="closeDrawers()"
+  ></div>
+</div>

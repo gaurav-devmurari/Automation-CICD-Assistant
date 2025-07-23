@@ -1,0 +1,49 @@
+<div class="pipeline-container">
+  <div class="pipeline-header">
+    <h1 class="pipeline-title">My Pipelines</h1>
+  </div>
+
+  <div class="pipeline-content">
+    <div class="table-container">
+      <table class="pipeline-table">
+        <thead>
+          <tr class="table-header">
+            <th class="header-cell">#</th>
+            <th class="header-cell">Repository</th>
+            <th class="header-cell">Project Type</th>
+            <th class="header-cell">Node Version</th>
+            <th class="header-cell">Current Version</th>
+            <th class="header-cell">Created At</th>
+            <th class="header-cell">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr 
+            *ngFor="let pipeline of pipelines; trackBy: trackByPipeline" 
+            class="table-row">
+            <td class="table-cell">{{ pipeline.id }}</td>
+            <td class="table-cell">{{ pipeline.repository }}</td>
+            <td class="table-cell">{{ pipeline.projectType }}</td>
+            <td class="table-cell">{{ pipeline.nodeVersion }}</td>
+            <td class="table-cell">{{ pipeline.currentVersion }}</td>
+            <td class="table-cell">{{ pipeline.createdAt }}</td>
+            <td class="table-cell actions-cell">
+              <button 
+                class="action-btn edit-btn"
+                (click)="editPipeline(pipeline)"
+                title="Edit Pipeline">
+                Edit
+              </button>
+              <button 
+                class="action-btn delete-btn"
+                (click)="deletePipeline(pipeline)"
+                title="Delete Pipeline">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

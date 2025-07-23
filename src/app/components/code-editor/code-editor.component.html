@@ -1,0 +1,47 @@
+<div class="code-editor">
+  <div class="drawer-header">
+    <h3>Code Editor</h3>
+    <div class="header-actions">
+      <button class="btn-icon" (click)="resetCode()" title="Reset">
+        <span>🔄</span>
+      </button>
+      <button class="btn-icon" (click)="clearCode()" title="Clear">
+        <span>🗑️</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="editor-container">
+    <div class="code-area">
+      <div class="line-numbers">
+        <div *ngFor="let lineNum of getLineNumbers()" class="line-number">
+          {{ lineNum }}
+        </div>
+      </div>
+      <textarea
+        [(ngModel)]="code"
+        (keydown)="onKeyDown($event)"
+        class="code-textarea"
+        placeholder="Enter your code here..."
+        spellcheck="false">
+      </textarea>
+    </div>
+    
+    <!-- <div class="editor-footer">
+      <button 
+        class="btn run-button"
+        (click)="runCode()"
+        [disabled]="isExecuting || !code.trim()">
+        <span *ngIf="!isExecuting">▶️ Run</span>
+        <span *ngIf="isExecuting">⏳ Running...</span>
+      </button>
+    </div> -->
+    
+    <div class="output-area" *ngIf="output">
+      <div class="output-header">
+        <span>Output</span>
+      </div>
+      <pre class="output-content">{{ output }}</pre>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,189 @@
+.chat-history {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f9fafb;
+  font-size: 14px;
+}
+
+.sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-header:hover {
+  cursor: pointer;
+}
+
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  color: #10a37f;
+}
+
+.logo-text {
+  font-weight: 600;
+  color: #374151;
+  font-size: 16px;
+}
+
+.menu-section {
+  padding: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #374151;
+}
+
+.menu-item:hover {
+  background: #f3f4f6;
+}
+
+.menu-item svg {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.chats-section {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-title {
+  padding: 16px 16px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chat-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 8px;
+}
+
+.chat-list::-webkit-scrollbar {
+ display: none;
+}
+
+.chat-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-list::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 2px;
+}
+
+.chat-item:hover {
+  background: #f3f4f6;
+}
+
+.chat-title {
+  color: #374151;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+}
+
+.upgrade-section {
+  border-top: 1px solid #e5e7eb;
+  padding: 8px;
+  background: #ffffff;
+}
+
+.collapse-section {
+  padding-top: 8px;
+}
+
+.collapse-section .menu-item {
+  justify-content: center;
+}
+
+.collapse-section .menu-item svg {
+  transition: transform 0.2s ease;
+}
+
+.upgrade-item {
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.upgrade-item:hover {
+  background: #f3f4f6;
+}
+
+.upgrade-badge {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.upgrade-badge span {
+  display: block;
+  line-height: 1.3;
+}
+
+/* Collapsed state styles */
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  max-width: 0;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+/* Adjust menu items when collapsed */
+.menu-item {
+  justify-content: flex-start;
+  transition: justify-content 0.2s ease;
+}
+
+/* Center icons when collapsed */
+.chat-history:has(.hidden) .menu-item {
+  justify-content: center;
+}
+
+.chat-history:has(.hidden) .logo-section {
+  justify-content: center;
+}
+
+.chat-history:has(.hidden) .chat-item {
+  justify-content: center;
+}
