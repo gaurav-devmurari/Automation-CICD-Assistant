@@ -1,7 +1,7 @@
 <div class="app-container">
   <!-- Header -->
-  <header class="app-header">
-    <div class="header-left">
+  <!-- <header class="app-header"> -->
+    <!-- <div class="header-left">
       <button
         class="btn-icon mobile-only"
         (click)="toggleLeftDrawer()"
@@ -16,13 +16,13 @@
           />
         </svg>
       </button>
-    </div>
+    </div> -->
 
-    <div class="header-center">
-      <h1>Automation CICD</h1>
-    </div>
+    <!-- <div class="header-center">
+      <h1>YAML Wizard</h1>
+    </div> -->
 
-    <div class="header-right">
+    <!-- <div class="header-right">
       <button
         class="btn-icon"
         (click)="toggleRightDrawer()"
@@ -38,8 +38,8 @@
           />
         </svg>
       </button>
-    </div>
-  </header>
+    </div> -->
+  <!-- </header> -->
 
   <div class="app-body">
     <!-- Fixed Left Sidebar (Desktop) / Drawer (Mobile) -->
@@ -57,9 +57,9 @@
     </div>
 
     <!-- Mobile Left Drawer -->
-    <div class="drawer mobile-only" [class.open]="showLeftDrawer">
+    <!-- <div class="drawer mobile-only" [class.open]="showLeftDrawer">
       <app-chat-history></app-chat-history>
-    </div>
+    </div> -->
 
     <!-- Main Content -->
     <div
@@ -69,7 +69,7 @@
       <main class="main-content" *ngIf="currentView === 'chat'">
         <div class="chat-container">
           <div class="welcome-area" *ngIf="messages.length === 0">
-            <h2>How can I help you today?</h2>
+            <h2>Welcome to YAML Wizard!<br> Let’s automate your builds and deployments.</h2>
           </div>
 
           <!-- Chat Messages -->
@@ -81,7 +81,7 @@
               [class.ai-message]="!message.isUser"
             >
               <div class="message-content">
-                <div class="message-avatar" *ngIf="!message.isUser">
+                <!-- <div class="message-avatar" *ngIf="!message.isUser">
                   <div class="ai-avatar">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                       <path
@@ -107,13 +107,13 @@
                       />
                     </svg>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="message-text">
                   {{ message.content }}
                 </div>
 
-                <div class="message-avatar" *ngIf="message.isUser">
+                <!-- <div class="message-avatar" *ngIf="message.isUser">
                   <div class="user-avatar">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                       <path
@@ -132,7 +132,7 @@
                       />
                     </svg>
                   </div>
-                </div>
+                </div> -->
               </div>
 
               <!-- Action buttons for AI messages -->
@@ -310,7 +310,7 @@
     </div>
 
     <!-- Right Drawer - Code Editor -->
-    <div class="drawer right" [class.open]="showRightDrawer">
+    <div class="right-sidebar desktop-only" [class.open]="showRightDrawer">
       <app-code-editor
         (codeExecuted)="onCodeExecuted($event)"
       ></app-code-editor>

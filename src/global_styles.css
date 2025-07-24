@@ -105,7 +105,7 @@ body {
   border-right: none;
   border-left: 1px solid #e5e7eb;
   transform: translateX(100%);
-  width: 800px;
+  width: 700px;
 }
 
 .drawer.right.open {

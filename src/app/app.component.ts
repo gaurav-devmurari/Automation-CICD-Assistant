@@ -33,108 +33,108 @@ export class AppComponent {
   currentView: "chat" | "list" = "chat";
   // Chat messages array
   messages: ChatMessage[] = [
-    {
-      id: "1",
-      content: "Hello! How can I help you today?",
-      isUser: false,
-      timestamp: new Date(),
-    },
-    {
-      id: "2",
-      content: "I need help with my code.",
-      isUser: true,
-      timestamp: new Date(),
-    },
-    {
-      id: "3",
-      content: "Sure, let me show you how to do that.",
-      isUser: false,
-      timestamp: new Date(),
-    },
-    {
-      id: "4",
-      content: "Thanks!",
-      isUser: true,
-      timestamp: new Date(),
-    },
-    {
-      id: "5",
-      content: "You're welcome!",
-      isUser: false,
-      timestamp: new Date(),
-    },
-    {
-      id: "6",
-      content: "I have another question.",
-      isUser: true,
-      timestamp: new Date(),
-    },
-    {
-      id: "7",
-      content: "Sure, let me show you how to do that.",
-      isUser: false,
-      timestamp: new Date(),
-    },
-    {
-      id: "8",
-      content: "Thanks!",
-      isUser: true,
-      timestamp: new Date(),
-    },
-    {
-      id: "9",
-      content: "You're welcome!",
-      isUser: false,
-      timestamp: new Date(),
-    },
-    {
-      id: "10",
-      content: "I have another question.",
-      isUser: true,
-      timestamp: new Date(),
-    },
-    {
-      id: "11",
-      content: "Sure, let me show you how to do that.",
-      isUser: false,
-      timestamp: new Date(),
-    },
-    {
-      id: "12",
-      content: "Thanks!",
-      isUser: true,
-      timestamp: new Date(),
-    },
-    {
-      id: "13",
-      content: "You're welcome!",
-      isUser: false,
-      timestamp: new Date(),
-    },
-    {
-      id: "14",
-      content: "I have another question.",
-      isUser: true,
-      timestamp: new Date(),
-    },
-    {
-      id: "15",
-      content: "Sure, let me show you how to do that.",
-      isUser: false,
-      timestamp: new Date(),
-    },
-    {
-      id: "16",
-      content: "Thanks!",
-      isUser: true,
-      timestamp: new Date(),
-    },
-    {
-      id: "17",
-      content: "You're welcome!",
-      isUser: false,
-      timestamp: new Date(),
-    },
+    // {
+    //   id: "1",
+    //   content: "Hello! How can I help you today?",
+    //   isUser: false,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "2",
+    //   content: "I need help with my code.",
+    //   isUser: true,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "3",
+    //   content: "Sure, let me show you how to do that.",
+    //   isUser: false,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "4",
+    //   content: "Thanks!",
+    //   isUser: true,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "5",
+    //   content: "You're welcome!",
+    //   isUser: false,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "6",
+    //   content: "I have another question.",
+    //   isUser: true,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "7",
+    //   content: "Sure, let me show you how to do that.",
+    //   isUser: false,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "8",
+    //   content: "Thanks!",
+    //   isUser: true,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "9",
+    //   content: "You're welcome!",
+    //   isUser: false,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "10",
+    //   content: "I have another question.",
+    //   isUser: true,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "11",
+    //   content: "Sure, let me show you how to do that.",
+    //   isUser: false,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "12",
+    //   content: "Thanks!",
+    //   isUser: true,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "13",
+    //   content: "You're welcome!",
+    //   isUser: false,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "14",
+    //   content: "I have another question.",
+    //   isUser: true,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "15",
+    //   content: "Sure, let me show you how to do that.",
+    //   isUser: false,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "16",
+    //   content: "Thanks!",
+    //   isUser: true,
+    //   timestamp: new Date(),
+    // },
+    // {
+    //   id: "17",
+    //   content: "You're welcome!",
+    //   isUser: false,
+    //   timestamp: new Date(),
+    // },
   ];
 
   // Drawer visibility states
@@ -154,10 +154,10 @@ export class AppComponent {
    */
   toggleLeftDrawer(): void {
     this.showLeftDrawer = !this.showLeftDrawer;
-    if (this.showLeftDrawer) {
-      this.showRightDrawer = false; // Close right drawer
-      this.isLeftSidebarCollapsed = false; // Ensure desktop sidebar is not collapsed
-    }
+    // if (this.showLeftDrawer) {
+    //   this.showRightDrawer = false; // Close right drawer
+    //   this.isLeftSidebarCollapsed = false; // Ensure desktop sidebar is not collapsed
+    // }
   }
 
   /**
