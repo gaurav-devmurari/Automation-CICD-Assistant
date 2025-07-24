@@ -58,11 +58,12 @@
 }
 
 .header-cell {
-  padding: 16px 20px;
+  padding: 10px 10px;
   text-align: left;
   font-weight: 600;
   font-size: 14px;
   border-right: 1px solid #e5e7eb;
+  text-align: center;
 }
 
 .header-cell:last-child {

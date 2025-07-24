@@ -9,38 +9,51 @@
         <thead>
           <tr class="table-header">
             <th class="header-cell">#</th>
-            <th class="header-cell">Repository</th>
-            <th class="header-cell">Project Type</th>
-            <th class="header-cell">Node Version</th>
-            <th class="header-cell">Current Version</th>
-            <th class="header-cell">Created At</th>
-            <th class="header-cell">Actions</th>
+              <th class="header-cell">Repository</th>
+              <th class="header-cell">Project Type</th>
+              <th class="header-cell">Node Version</th>
+              <th class="header-cell">Current Version</th>
+              <th class="header-cell">Created At</th>
+              <th class="header-cell">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr 
-            *ngFor="let pipeline of pipelines; trackBy: trackByPipeline" 
+            *ngFor="let pipeline of pipelines; let i = index" 
             class="table-row">
-            <td class="table-cell">{{ pipeline.id }}</td>
-            <td class="table-cell">{{ pipeline.repository }}</td>
-            <td class="table-cell">{{ pipeline.projectType }}</td>
-            <td class="table-cell">{{ pipeline.nodeVersion }}</td>
-            <td class="table-cell">{{ pipeline.currentVersion }}</td>
-            <td class="table-cell">{{ pipeline.createdAt }}</td>
-            <td class="table-cell actions-cell">
-              <button 
-                class="action-btn edit-btn"
-                (click)="editPipeline(pipeline)"
-                title="Edit Pipeline">
-                Edit
-              </button>
-              <button 
-                class="action-btn delete-btn"
-                (click)="deletePipeline(pipeline)"
-                title="Delete Pipeline">
-                Delete
-              </button>
-            </td>
+            <td class="table-cell">{{ i + 1 }}</td>
+              <td class="table-cell">{{ pipeline.repoName }}</td>
+              <td class="table-cell">
+                {{
+                  PROJECT_TYPE_OPTIONS[pipeline.projectType] ||
+                    pipeline.projectType
+                }}
+              </td>
+              <td class="table-cell">
+                {{ pipeline.nodeVersion || 'N/A' }}
+              </td>
+              <td class="table-cell">
+                {{ pipeline['currentVersion'] }}
+              </td>
+              <td class="table-cell">
+                {{ pipeline.$createdAt | date: 'dd-MM-yyyy' }}
+                {{ pipeline.$createdAt | date: 'mediumTime' }}
+              </td>
+              <td class="table-cell  actions-cell">
+                <button
+                  (click)="editPipeline(pipeline)"
+                  class="action-btn edit-btn"
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  (click)="deletePipeline(pipeline.$id)"
+                  class="action-btn delete-btn"
+                >
+                  Delete
+                </button>
+              </td>
           </tr>
         </tbody>
       </table>
