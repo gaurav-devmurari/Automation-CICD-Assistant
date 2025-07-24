@@ -4,6 +4,7 @@ import { SearchBoxComponent } from "./components/search-box/search-box.component
 import { ChatHistoryComponent } from "./components/chat-history/chat-history.component";
 import { CodeEditorComponent } from "./components/code-editor/code-editor.component";
 import { PipelineListComponent } from "./components/pipeline-list/pipeline-list.component";
+import { WelcomePageComponent } from "./components/welcome-page/welcome-page.component";
 
 export interface ChatMessage {
   id: string;
@@ -24,13 +25,14 @@ export interface ChatMessage {
     ChatHistoryComponent,
     CodeEditorComponent,
     PipelineListComponent,
+    WelcomePageComponent
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
   title = "ChatGPT Style App";
-  currentView: "chat" | "list" = "chat";
+  currentView: "chat" | "list" | 'welcome'= "welcome";
   // Chat messages array
   messages: ChatMessage[] = [
     // {
@@ -137,44 +139,46 @@ export class AppComponent {
     // },
   ];
 
-  // Drawer visibility states
-  isLeftSidebarCollapsed = false; // For desktop sidebar collapse
-  showLeftDrawer = false; // For mobile responsiveness
+  // Sidebar slide state
+  isLeftSidebarOpened = false;
+
+  // Drawer visibility states (right drawer only)
   showRightDrawer = false;
 
-  /**
-   * Toggle left sidebar collapse (desktop only)
-   */
-  toggleLeftSidebarCollapse(): void {
-    this.isLeftSidebarCollapsed = !this.isLeftSidebarCollapsed;
+  // Sidebar hover logic
+  private sidebarHoverCount = 0;
+  private sidebarCloseTimeout: any;
+
+  onSidebarMouseEnter() {
+    this.sidebarHoverCount++;
+    clearTimeout(this.sidebarCloseTimeout);
+    this.isLeftSidebarOpened = true;
   }
 
-  /**
-   * Toggle left drawer (mobile only)
-   */
-  toggleLeftDrawer(): void {
-    this.showLeftDrawer = !this.showLeftDrawer;
-    // if (this.showLeftDrawer) {
-    //   this.showRightDrawer = false; // Close right drawer
-    //   this.isLeftSidebarCollapsed = false; // Ensure desktop sidebar is not collapsed
-    // }
-  }
-
-  /**
-   * Toggle right drawer (Code Editor)
-   */
-  toggleRightDrawer(): void {
-    this.showRightDrawer = !this.showRightDrawer;
-    if (this.showRightDrawer) {
-      this.showLeftDrawer = false; // Close left drawer
+  onSidebarMouseLeave() {
+    this.sidebarHoverCount--;
+    if (this.sidebarHoverCount <= 0) {
+      this.sidebarCloseTimeout = setTimeout(() => {
+        if (this.sidebarHoverCount <= 0) {
+          this.isLeftSidebarOpened = false;
+        }
+      }, 120); // Small delay for smoothness
     }
   }
 
-  /**
-   * Close all drawers
-   */
+  openLeftSidebar() {
+    this.isLeftSidebarOpened = true;
+  }
+
+  closeLeftSidebar() {
+    this.isLeftSidebarOpened = false;
+  }
+
+  toggleLeftSidebar() {
+    this.isLeftSidebarOpened = !this.isLeftSidebarOpened;
+  }
+
   closeDrawers(): void {
-    this.showLeftDrawer = false;
     this.showRightDrawer = false;
   }
 
@@ -230,12 +234,43 @@ export class AppComponent {
 
   showPipelineList() {
     this.currentView = "list";
-    this.closeDrawers()
+    this.closeDrawers();
   }
 
   showNewChat() {
     this.currentView = "chat";
-    this.closeDrawers()
+    this.closeDrawers();
   }
+
+  // Right sidebar resizing
+  private resizingRightSidebar = false;
+  private startX = 0;
+  private startWidth = 360;
+
+  onRightSidebarResizeStart(event: MouseEvent) {
+    this.resizingRightSidebar = true;
+    this.startX = event.clientX;
+    const sidebar = document.querySelector('.right-sidebar') as HTMLElement;
+    this.startWidth = sidebar ? sidebar.offsetWidth : 360;
+    document.addEventListener('mousemove', this.onRightSidebarResize);
+    document.addEventListener('mouseup', this.onRightSidebarResizeEnd);
+    event.preventDefault();
+  }
+
+  onRightSidebarResize = (event: MouseEvent) => {
+    if (!this.resizingRightSidebar) return;
+    const dx = this.startX - event.clientX;
+    let newWidth = this.startWidth + dx;
+    const maxWidth = window.innerWidth / 2;
+    const minWidth = 220;
+    newWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
+    document.documentElement.style.setProperty('--right-sidebar-width', `${newWidth}px`);
+  };
+
+  onRightSidebarResizeEnd = () => {
+    this.resizingRightSidebar = false;
+    document.removeEventListener('mousemove', this.onRightSidebarResize);
+    document.removeEventListener('mouseup', this.onRightSidebarResizeEnd);
+  };
 
 }

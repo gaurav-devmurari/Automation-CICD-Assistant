@@ -100,7 +100,7 @@ body {
 }
 
 .drawer.right {
-  right: 0;
+  right: 100px;
   left: auto;
   border-right: none;
   border-left: 1px solid #e5e7eb;
